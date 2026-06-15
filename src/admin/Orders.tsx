@@ -1,9 +1,12 @@
-import { listOrders, setOrderStatus } from "@/lib/api";
+import { useState } from "react";
+import { delOrder, listOrders, setOrderStatus } from "@/lib/api";
 import { useAsync } from "@/lib/use";
-import type { Delivery, OrderStatus } from "@/types";
+import type { Delivery, Order, OrderStatus } from "@/types";
 import { rub, date } from "@/lib/fmt";
 import Badge from "@/ui/Badge";
+import Btn from "@/ui/Btn";
 import Icon from "@/ui/Icon";
+import Modal from "@/ui/Modal";
 import { Loader } from "@/ui/Spinner";
 import { PanelTitle } from "./parts";
 import { STATUS } from "./status";
@@ -14,10 +17,19 @@ const DEL: Record<Delivery, string> = { courier: "Курьер", pickup: "Сам
 export default function Orders() {
   const { data, loading, reload } = useAsync(listOrders);
   const push = useToast((s) => s.push);
+  const [del, setDel] = useState<Order | null>(null);
 
   const change = async (id: string, status: OrderStatus) => {
     await setOrderStatus(id, status);
     push("Статус заказа обновлён");
+    reload();
+  };
+
+  const onDelete = async () => {
+    if (!del) return;
+    await delOrder(del.id);
+    push("Заказ удалён", "info");
+    setDel(null);
     reload();
   };
 
@@ -68,19 +80,28 @@ export default function Orders() {
                       <Badge tone={st.tone}>{st.label}</Badge>
                     </Td>
                     <Td>
-                      <div className="relative">
-                        <select
-                          value={o.status}
-                          onChange={(e) => change(o.id, e.target.value as OrderStatus)}
-                          className="h-9 cursor-pointer appearance-none rounded-lg border border-black/10 bg-white pl-3 pr-8 text-sm font-medium outline-none focus:border-brand-500"
+                      <div className="flex items-center gap-2">
+                        <div className="relative">
+                          <select
+                            value={o.status}
+                            onChange={(e) => change(o.id, e.target.value as OrderStatus)}
+                            className="h-9 cursor-pointer appearance-none rounded-lg border border-black/10 bg-white pl-3 pr-8 text-sm font-medium outline-none focus:border-brand-500"
+                          >
+                            {(Object.keys(STATUS) as OrderStatus[]).map((s) => (
+                              <option key={s} value={s}>
+                                {STATUS[s].label}
+                              </option>
+                            ))}
+                          </select>
+                          <Icon name="chevd" size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-900/40" />
+                        </div>
+                        <button
+                          onClick={() => setDel(o)}
+                          className="grid h-9 w-9 shrink-0 place-items-center rounded-lg border border-red-300 text-red-500 transition hover:bg-red-50"
+                          aria-label="Удалить заказ"
                         >
-                          {(Object.keys(STATUS) as OrderStatus[]).map((s) => (
-                            <option key={s} value={s}>
-                              {STATUS[s].label}
-                            </option>
-                          ))}
-                        </select>
-                        <Icon name="chevd" size={14} className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 text-ink-900/40" />
+                          <Icon name="trash" size={16} />
+                        </button>
                       </div>
                     </Td>
                   </tr>
@@ -97,6 +118,20 @@ export default function Orders() {
           </table>
         </div>
       </div>
+
+      <Modal open={!!del} onClose={() => setDel(null)} title="Удалить заказ?">
+        <p className="text-ink-900/60">
+          Заказ <b className="text-ink-900">#{del?.id}</b> будет удалён без возможности восстановления.
+        </p>
+        <div className="mt-6 flex justify-end gap-3">
+          <Btn variant="ghost" onClick={() => setDel(null)}>
+            Отмена
+          </Btn>
+          <Btn variant="danger" onClick={onDelete}>
+            <Icon name="trash" size={16} /> Удалить
+          </Btn>
+        </div>
+      </Modal>
     </>
   );
 }

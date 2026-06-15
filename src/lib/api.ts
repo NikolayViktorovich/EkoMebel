@@ -51,6 +51,11 @@ export async function setOrderStatus(id: string, status: OrderStatus): Promise<v
   store.set({ orders: store.get().orders.map((o) => (o.id === id ? { ...o, status } : o)) });
 }
 
+export async function delOrder(id: string): Promise<void> {
+  await wait();
+  store.set({ orders: store.get().orders.filter((o) => o.id !== id) });
+}
+
 export async function listReviews(productId: string): Promise<Review[]> {
   await wait(260);
   return clone(store.get().reviews)

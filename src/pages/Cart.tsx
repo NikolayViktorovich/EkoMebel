@@ -124,8 +124,6 @@ function Stepper({ step }: { step: Step }) {
   );
 }
 
-/* ───────── Шаг 1: корзина ───────── */
-
 function Step1({
   items,
   setQty,
@@ -145,7 +143,6 @@ function Step1({
   return (
     <div className="grid gap-6 lg:grid-cols-[1fr_22rem]">
       <div>
-        {/* десктоп: таблица */}
         <div className="card hidden overflow-hidden sm:block">
           <div className="grid grid-cols-[1fr_8rem_9rem_8rem_3rem] items-center gap-2 bg-brand-50/60 px-5 py-3 text-sm font-semibold text-ink-900/55">
             <span>Товар</span>
@@ -167,7 +164,6 @@ function Step1({
           ))}
         </div>
 
-        {/* мобильные карточки */}
         <div className="space-y-3 sm:hidden">
           {items.map((l) => (
             <div key={l.id} className="card p-4">
@@ -235,8 +231,6 @@ function Row({ l, v }: { l: React.ReactNode; v: React.ReactNode }) {
     </div>
   );
 }
-
-/* ───────── Шаг 2: оформление ───────── */
 
 function Step2({ sub, onBack, onDone }: { sub: number; onBack: () => void; onDone: (id: string) => void }) {
   const { items, clear } = useCart();
@@ -390,8 +384,6 @@ function phoneMask(v: string) {
   if (d.length >= 9) r += `-${d.slice(9, 11)}`;
   return r;
 }
-
-/* ───────── Шаг 3: готово ───────── */
 
 function Done({ orderId }: { orderId: string }) {
   return (

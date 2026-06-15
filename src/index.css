@@ -17,7 +17,6 @@
   ::selection {
     @apply bg-brand-200 text-brand-900;
   }
-  /* аккуратный скролл */
   ::-webkit-scrollbar {
     width: 10px;
     height: 10px;
@@ -44,7 +43,6 @@
   .lnk {
     @apply text-ink-900/70 transition-colors hover:text-brand-600;
   }
-  /* сдержанный hover карточек: лёгкая смена тени/границы, без движения */
   .lift {
     @apply transition-shadow duration-150 hover:shadow-pop;
   }

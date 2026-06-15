@@ -11,7 +11,6 @@ type Auth = {
   isAdmin: () => boolean;
 };
 
-// демо-авторизация: admin@ekomebel.ru / любой пароль -> роль admin
 export const useAuth = create<Auth>()(
   persist(
     (set, get) => ({

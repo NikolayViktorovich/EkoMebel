@@ -18,7 +18,6 @@ export default function Stats() {
   const avg = os.length ? Math.round(revenue / os.length) : 0;
   const stockUnits = ps.reduce((s, p) => s + p.stock, 0);
 
-  // выручка по категориям
   const catMap = new Map<string, number>();
   const pcat = new Map(ps.map((p) => [p.id, p.cat]));
   for (const o of os)
@@ -29,11 +28,9 @@ export default function Stats() {
   const cats = [...catMap.entries()].sort((a, b) => b[1] - a[1]);
   const catMax = Math.max(1, ...cats.map((c) => c[1]));
 
-  // заказы по статусам
   const stMap = new Map<OrderStatus, number>();
   for (const o of os) stMap.set(o.status, (stMap.get(o.status) ?? 0) + 1);
 
-  // топ товаров по отзывам
   const top = [...ps].sort((a, b) => b.reviews - a.reviews).slice(0, 5);
   const topMax = Math.max(1, ...top.map((p) => p.reviews));
 

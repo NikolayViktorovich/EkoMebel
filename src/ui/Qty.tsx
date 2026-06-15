@@ -1,7 +1,6 @@
 import Icon from "./Icon";
 import { cn } from "@/lib/cn";
 
-/** Степпер количества. */
 export default function Qty({
   value,
   onChange,

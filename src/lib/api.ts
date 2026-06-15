@@ -1,12 +1,9 @@
 import type { Order, OrderStatus, Product, Review, User } from "@/types";
 import { store } from "./db";
 
-/** Имитация сетевой задержки бэкенда. */
 const wait = (ms = 320) => new Promise<void>((r) => setTimeout(r, ms));
 const clone = <T>(v: T): T => structuredClone(v);
 const uid = () => Math.random().toString(36).slice(2, 10);
-
-/* ───────────────── Товары ───────────────── */
 
 export async function listProducts(): Promise<Product[]> {
   await wait(280);
@@ -33,8 +30,6 @@ export async function delProduct(id: string): Promise<void> {
   store.set({ products: store.get().products.filter((p) => p.id !== id) });
 }
 
-/* ───────────────── Заказы ───────────────── */
-
 export async function listOrders(): Promise<Order[]> {
   await wait(280);
   return clone(store.get().orders).sort((a, b) => +new Date(b.date) - +new Date(a.date));
@@ -43,7 +38,6 @@ export async function listOrders(): Promise<Order[]> {
 export async function createOrder(o: Omit<Order, "id" | "date" | "status">): Promise<Order> {
   await wait(600);
   const order: Order = { ...o, id: `${Date.now()}`, date: new Date().toISOString(), status: "pending" };
-  // списываем остатки со склада
   const list = store.get().products.map((p) => {
     const it = o.items.find((i) => i.id === p.id);
     return it ? { ...p, stock: Math.max(0, p.stock - it.qty) } : p;
@@ -57,8 +51,6 @@ export async function setOrderStatus(id: string, status: OrderStatus): Promise<v
   store.set({ orders: store.get().orders.map((o) => (o.id === id ? { ...o, status } : o)) });
 }
 
-/* ───────────────── Отзывы ───────────────── */
-
 export async function listReviews(productId: string): Promise<Review[]> {
   await wait(260);
   return clone(store.get().reviews)
@@ -69,7 +61,6 @@ export async function listReviews(productId: string): Promise<Review[]> {
 export async function addReview(input: Omit<Review, "id" | "date">): Promise<Review> {
   await wait(420);
   const review: Review = { ...input, id: `${input.productId}-${uid()}`, date: new Date().toISOString() };
-  // пересчёт среднего рейтинга и счётчика у товара (инкрементальное среднее)
   const products = store.get().products.map((p) => {
     if (p.id !== input.productId) return p;
     const count = p.reviews + 1;
@@ -79,8 +70,6 @@ export async function addReview(input: Omit<Review, "id" | "date">): Promise<Rev
   store.set({ reviews: [review, ...store.get().reviews], products });
   return clone(review);
 }
-
-/* ───────────────── Пользователи ───────────────── */
 
 export async function listUsers(): Promise<User[]> {
   await wait(260);

@@ -38,7 +38,6 @@ const Btn = forwardRef<HTMLButtonElement, BtnProps>(function Btn(
 
 export default Btn;
 
-/** Кнопка-ссылка с тем же видом. */
 export function LinkBtn({
   to,
   variant,

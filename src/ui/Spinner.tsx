@@ -11,7 +11,6 @@ export default function Spinner({ size = 22, className }: { size?: number; class
   );
 }
 
-/** Полноблочный лоадер по центру. */
 export function Loader({ label = "Загрузка…" }: { label?: string }) {
   return (
     <div className="flex flex-col items-center justify-center gap-3 py-24 text-ink-900/50">

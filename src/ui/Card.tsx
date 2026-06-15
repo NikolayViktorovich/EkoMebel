@@ -10,7 +10,6 @@ import { useCart } from "@/store/cart";
 import { useFav } from "@/store/fav";
 import { useToast } from "@/store/toast";
 
-/** Карточка товара для каталога и главной. */
 export default function Card({ p }: { p: Product }) {
   const add = useCart((s) => s.add);
   const fav = useFav();

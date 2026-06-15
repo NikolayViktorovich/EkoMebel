@@ -1,6 +1,5 @@
 import { cn } from "@/lib/cn";
 
-/** Звёзды рейтинга на иконках Bootstrap (full / half / empty). */
 export default function Rating({
   value,
   reviews,

@@ -18,10 +18,10 @@ export type Product = {
   stock: number;
   rating: number;
   reviews: number;
-  emoji: string; // визуальная заглушка изображения
-  gallery: string[]; // эмодзи для галереи
+  emoji: string;
+  gallery: string[];
   desc: string;
-  eco: string; // экологическая информация
+  eco: string;
   specs: Spec[];
   popular?: boolean;
 };
@@ -31,7 +31,7 @@ export type Review = {
   productId: string;
   author: string;
   rating: number;
-  date: string; // ISO
+  date: string;
   text: string;
 };
 
@@ -43,7 +43,7 @@ export type OrderStatus = "pending" | "processing" | "shipped" | "delivered";
 
 export type Order = {
   id: string;
-  date: string; // ISO
+  date: string;
   items: OrderItem[];
   delivery: Delivery;
   deliveryCost: number;
@@ -63,7 +63,7 @@ export type User = {
   email: string;
   phone?: string;
   role: Role;
-  joined: string; // ISO
+  joined: string;
   orders: number;
   spent: number;
 };

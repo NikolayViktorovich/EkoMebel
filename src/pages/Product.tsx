@@ -46,7 +46,6 @@ export default function Product() {
       <Crumbs items={[{ label: "Главная", to: "/" }, { label: "Каталог", to: "/catalog" }, { label: p.name }]} />
 
       <div className="mt-5 grid gap-8 lg:grid-cols-2 lg:gap-12">
-        {/* галерея */}
         <div>
           <div className="grid aspect-square place-items-center rounded-2xl bg-brand-50 text-[9rem] ring-1 ring-black/[.04]">
             {p.gallery[img]}
@@ -67,7 +66,6 @@ export default function Product() {
           </div>
         </div>
 
-        {/* инфо */}
         <div>
           <div className="flex flex-wrap gap-2">
             <span className="rounded-md bg-brand-600 px-2.5 py-1 text-xs font-bold text-white">{p.cat}</span>
@@ -97,7 +95,6 @@ export default function Product() {
 
           <p className="mt-5 leading-relaxed text-ink-900/70">{p.desc}</p>
 
-          {/* эко-блок */}
           <div className="mt-5 rounded-2xl border border-brand-200 bg-brand-50 p-4">
             <div className="flex items-center gap-2 font-bold text-brand-800">
               <Icon name="recycle" size={20} className="text-brand-600" /> Экологическая информация
@@ -105,7 +102,6 @@ export default function Product() {
             <p className="mt-1.5 text-sm leading-relaxed text-brand-900/70">{p.eco}</p>
           </div>
 
-          {/* характеристики */}
           <dl className="mt-5 overflow-hidden rounded-2xl ring-1 ring-black/[.06]">
             {p.specs.map((s, i) => (
               <div key={s.k} className={cn("flex justify-between gap-4 px-4 py-2.5 text-sm", i % 2 ? "bg-white" : "bg-cream/70")}>
@@ -115,7 +111,6 @@ export default function Product() {
             ))}
           </dl>
 
-          {/* действия */}
           <div className="mt-6 flex flex-wrap items-center gap-3">
             <Qty value={qty} onChange={setQty} max={Math.max(1, p.stock)} />
             <Btn

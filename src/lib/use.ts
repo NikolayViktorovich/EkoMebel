@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 
-/** Универсальный загрузчик «с бэкенда»: data / loading / error + reload. */
 export function useAsync<T>(fn: () => Promise<T>, deps: unknown[] = []) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
@@ -18,7 +17,6 @@ export function useAsync<T>(fn: () => Promise<T>, deps: unknown[] = []) {
     return () => {
       alive = false;
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [...deps, tick]);
 
   return { data, loading, error, reload: () => setTick((t) => t + 1) };

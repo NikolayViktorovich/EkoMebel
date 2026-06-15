@@ -37,7 +37,6 @@ export default function Header() {
       <div className="wrap flex h-16 items-center gap-3 md:h-[4.5rem] md:gap-5">
         <Logo className="shrink-0" />
 
-        {/* поиск — на десктопе */}
         <form onSubmit={submit} className={cn("relative hidden flex-1 lg:block", !onHome && "lg:max-w-md")}>
           <Icon name="search" size={18} className="pointer-events-none absolute left-3.5 top-1/2 -translate-y-1/2 text-ink-900/40" />
           <input
@@ -48,7 +47,6 @@ export default function Header() {
           />
         </form>
 
-        {/* навигация */}
         <nav className="ml-auto hidden items-center gap-1 md:flex lg:ml-0">
           {NAV.map((n) => (
             <NavLink
@@ -66,7 +64,6 @@ export default function Header() {
           ))}
         </nav>
 
-        {/* иконки */}
         <div className="ml-auto flex items-center gap-1 md:ml-2">
           <IconLink to="/favorites" icon="heart" badge={favN} label="Избранное" className="hidden sm:inline-grid" />
           <IconLink to="/cart" icon="cart" badge={count} label="Корзина" />

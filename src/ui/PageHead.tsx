@@ -1,6 +1,5 @@
 import Crumbs from "./Crumbs";
 
-/** Шапка внутренней страницы: хлебные крошки + заголовок + подзаголовок. */
 export default function PageHead({
   crumb,
   title,

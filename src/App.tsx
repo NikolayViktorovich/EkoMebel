@@ -3,7 +3,6 @@ import { Navigate, Route, Routes } from "react-router-dom";
 import Layout from "./ui/Layout";
 import { Loader } from "./ui/Spinner";
 
-// витрина
 import Home from "./pages/Home";
 import Catalog from "./pages/Catalog";
 import Product from "./pages/Product";
@@ -16,7 +15,6 @@ import Login from "./pages/Login";
 import Account from "./pages/Account";
 import NotFound from "./pages/NotFound";
 
-// админка — отдельным чанком
 const Admin = lazy(() => import("./admin/Admin"));
 const Dash = lazy(() => import("./admin/Dash"));
 const AdmProducts = lazy(() => import("./admin/Products"));

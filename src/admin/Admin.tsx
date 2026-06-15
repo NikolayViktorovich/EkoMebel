@@ -17,7 +17,6 @@ export default function Admin() {
   const isAdmin = useAuth((s) => s.user?.role === "admin");
   const [open, setOpen] = useState(false);
 
-  // доступ только администратору — иначе экран входа
   if (!isAdmin) return <Login />;
 
   const Side = (
@@ -46,7 +45,6 @@ export default function Admin() {
 
   return (
     <div className="min-h-screen bg-cream">
-      {/* верхняя панель */}
       <header className="sticky top-0 z-40 flex h-16 items-center justify-between border-b border-black/[.06] bg-white px-4 sm:px-6">
         <div className="flex items-center gap-3">
           <button onClick={() => setOpen(true)} className="grid h-10 w-10 place-items-center rounded-lg hover:bg-black/5 lg:hidden" aria-label="Меню">
@@ -68,10 +66,8 @@ export default function Admin() {
       </header>
 
       <div className="flex">
-        {/* десктоп-сайдбар */}
         <aside className="sticky top-16 hidden h-[calc(100vh-4rem)] w-60 shrink-0 bg-ink-900 lg:block">{Side}</aside>
 
-        {/* мобильный drawer */}
         {open && (
           <div className="fixed inset-0 z-50 lg:hidden">
             <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />

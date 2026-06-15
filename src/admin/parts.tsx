@@ -41,7 +41,6 @@ export function Stat({
   );
 }
 
-/** Обёртка для прокручиваемой таблицы. */
 export function Panel({ title, children }: { title?: string; children: React.ReactNode }) {
   return (
     <div className="card overflow-hidden">

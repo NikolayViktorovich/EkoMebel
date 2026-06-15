@@ -31,7 +31,7 @@ export default function Catalog() {
   const [stockOnly, setStockOnly] = useState(false);
   const [saleOnly, setSaleOnly] = useState(false);
   const [maxPrice, setMaxPrice] = useState(80000);
-  const [open, setOpen] = useState(false); // мобильные фильтры
+  const [open, setOpen] = useState(false);
 
   const list = useMemo(() => {
     let r = (data ?? []) as Product[];
@@ -166,7 +166,6 @@ export default function Catalog() {
         </div>
       </div>
 
-      {/* мобильный drawer фильтров */}
       {open && (
         <div className="fixed inset-0 z-[80] lg:hidden">
           <div className="absolute inset-0 bg-black/40" onClick={() => setOpen(false)} />

@@ -14,7 +14,6 @@ const fresh = (): DB => ({
   ver: VER,
 });
 
-/** Загрузка состояния «БД» из localStorage (seed при первом запуске). */
 function load(): DB {
   try {
     const raw = localStorage.getItem(KEY);
@@ -33,11 +32,10 @@ function save() {
   try {
     localStorage.setItem(KEY, JSON.stringify(db));
   } catch {
-    /* квота переполнена — игнорируем */
+    void 0;
   }
 }
 
-/** Прямой доступ к коллекциям (используется только слоем api). */
 export const store = {
   get: () => db,
   set: (patch: Partial<DB>) => {

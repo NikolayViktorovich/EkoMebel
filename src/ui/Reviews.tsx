@@ -11,7 +11,6 @@ import Spinner from "./Spinner";
 import { Loader } from "./Spinner";
 import { useToast } from "@/store/toast";
 
-/** Блок отзывов на странице товара: сводка, список, форма. */
 export default function Reviews({
   productId,
   rating,
@@ -48,7 +47,6 @@ export default function Reviews({
         </Btn>
       </div>
 
-      {/* сводка */}
       <div className="card grid gap-8 p-6 sm:grid-cols-[auto_1fr] sm:p-8">
         <div className="flex flex-col items-center justify-center border-b border-black/[.06] pb-6 text-center sm:border-b-0 sm:border-r sm:pb-0 sm:pr-8">
           <div className="text-5xl font-extrabold">{rating.toFixed(1)}</div>
@@ -72,10 +70,8 @@ export default function Reviews({
         </div>
       </div>
 
-      {/* форма */}
       {open && <Form productId={productId} onAdded={onAdded} onCancel={() => setOpen(false)} />}
 
-      {/* список */}
       <div className="mt-6">
         {loading ? (
           <Loader label="Загрузка отзывов…" />
@@ -179,13 +175,12 @@ function Form({ productId, onAdded, onCancel }: { productId: string; onAdded: ()
   );
 }
 
-/** Правдоподобное распределение оценок по звёздам из среднего и количества. */
 function distribution(rating: number, count: number) {
   const base =
     rating >= 4.5 ? [0.7, 0.2, 0.06, 0.025, 0.015] : rating >= 4 ? [0.5, 0.28, 0.13, 0.06, 0.03] : [0.36, 0.3, 0.2, 0.09, 0.05];
   const ns = base.map((b) => Math.round(b * count));
   const diff = count - ns.reduce((a, b) => a + b, 0);
-  ns[0] = Math.max(0, ns[0] + diff); // компенсируем округление за счёт 5★
+  ns[0] = Math.max(0, ns[0] + diff);
   const max = Math.max(1, ...ns);
   return ns.map((n, i) => ({ star: 5 - i, n, pct: (n / max) * 100 }));
 }

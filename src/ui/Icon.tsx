@@ -1,7 +1,6 @@
 import type { HTMLAttributes } from "react";
 import { cn } from "@/lib/cn";
 
-// Короткие внутренние имена -> классы Bootstrap Icons 5 (без префикса bi-).
 const MAP: Record<string, string> = {
   search: "search",
   cart: "cart3",
@@ -43,7 +42,6 @@ const MAP: Record<string, string> = {
   info: "info-circle",
 };
 
-// Залитые варианты (solid).
 const SOLID: Record<string, string> = {
   heart: "heart-fill",
   user: "person-fill",
